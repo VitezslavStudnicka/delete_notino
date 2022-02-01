@@ -21,6 +21,6 @@
         tools:layout="@layout/fragment_product_detail" >
         <argument
             android:name="productId"
-            app:argType="string" />
+            app:argType="long" />
     </fragment>
 </navigation>

@@ -14,10 +14,9 @@ interface ApiService {
         @Query("pageSize") pageSize: Int? = 20,
     ): Response<RespProducts>
 
-    @POST("db/{id}")
-    suspend fun getProducts(
-        @Path("id") id: Int,
-        @Query("stars") stars: Int,
+    @POST("db/{id}/fav") // example na Endpoint, ktery by favorizoval product
+    suspend fun postFavProduct(
+        @Path("id") id: Int
     ): Response<Nothing>
 
 }
