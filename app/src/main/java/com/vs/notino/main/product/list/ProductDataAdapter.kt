@@ -5,9 +5,11 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.vs.notino.databinding.ItemProductBinding
 import com.vs.notino.main.product.list.ProductDataAdapter.ProductItemViewHolder
 import com.vs.notino.models.Product
+import com.vs.notino.networking.RestRepository
 
 class ProductDataAdapter(
     private val onDetailClick: ((Product) -> Unit)?,
@@ -48,6 +50,9 @@ class ProductDataAdapter(
             binding.product = product
             binding.detailClick = detailClick
             binding.favClick = favClick
+            binding.ivImage.load(RestRepository.BASE_IMAGE_URL.plus(product.imageUrl)) {
+                build()
+            }
             binding.executePendingBindings()
         }
     }

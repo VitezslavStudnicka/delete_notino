@@ -19,7 +19,7 @@ class ProductDataSource constructor(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Product> {
         return try {
             val currentLoadingPageKey = params.key ?: PAGE_START
-            val response = repository.getCountries(currentLoadingPageKey, PAGE_SIZE)
+            val response = repository.getCountries(currentLoadingPageKey, params.loadSize)
             val responseData = mutableListOf<Product>()
             responseData.addAll(response.body()?.vpProductByIds ?: emptyList())
 
@@ -38,6 +38,5 @@ class ProductDataSource constructor(
 
     companion object {
         private const val PAGE_START = 1
-        private const val PAGE_SIZE = 10
     }
 }
