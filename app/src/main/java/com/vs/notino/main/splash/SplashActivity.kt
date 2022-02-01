@@ -15,7 +15,7 @@ class SplashActivity : AppCompatActivity() {
         // DataStore example, is authentica
         val authenticated = true
         var intent: Intent
-        if (true) { // isauthenticated
+        if (true) { // //TODO datastore na isauthenticated?
             intent = Intent(this, MainActivity::class.java)
         } else {
             intent = Intent(this, LoginActivity::class.java)

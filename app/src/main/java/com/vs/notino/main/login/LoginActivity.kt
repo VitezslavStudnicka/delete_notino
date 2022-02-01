@@ -2,6 +2,7 @@ package com.vs.notino.main.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.vs.notino.R
 
 class LoginActivity : AppCompatActivity() {
 
