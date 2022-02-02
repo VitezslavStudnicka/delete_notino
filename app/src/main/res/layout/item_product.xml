@@ -20,46 +20,132 @@
         <variable
             name="detailClick"
             type="Function1&lt;Product, Unit>" />
+
+        <variable
+            name="addToBasketClick"
+            type="Function1&lt;Product, Unit>" />
     </data>
 
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="6dp"
         android:background="@color/teal_200"
         android:minHeight="100dp"
         android:onClick="@{() -> detailClick.invoke(product)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="12dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivImage"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginTop="8dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvBrand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{product.brand.name}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivImage" />
 
             <TextView
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="center|top"
+                android:maxLines="2"
+                android:minLines="2"
                 android:text="@{product.name}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/tvBrand" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivImage"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvAnnotation"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scaleType="fitCenter"
+                android:gravity="center|top"
+                android:maxLines="2"
+                android:minLines="2"
+                android:text="@{product.annotation}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvName" />
 
-            <ImageButton
+
+            <!--            Nechci plytvat cas na reseni takovehoto problemu aby slo pouzit s vector drawable, i kdyz jsem nekolik knihoven/class na mozny fix nasel
+            -> convert do png. Je to hnusny.. ale demo  -->
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="@style/CustomRatingBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="@{product.reviewSummary.score}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvAnnotation" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_price"
+                android:text="@{product.price.value.toString()}"
+                android:textSize="@dimen/price_size"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/tvCurrency"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ratingBar" />
+
+            <TextView
+                android:id="@+id/tvCurrency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_price"
+                android:text="@{product.price.currency}"
+                android:textSize="@dimen/price_size"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvPrice"
+                app:layout_constraintTop_toBottomOf="@id/ratingBar" />
+
+            <ImageButton
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@null"
                 android:onClick="@{() -> favClick.invoke(product)}"
+                android:scaleType="fitCenter"
                 app:favored="@{product.favored}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btAddToBasket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Do košíku"
+                android:onClick="@{() -> addToBasketClick.invoke(product)}"
+                android:textColor="@color/notino_gray_d2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvPrice" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

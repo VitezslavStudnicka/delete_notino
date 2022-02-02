@@ -23,7 +23,7 @@ class ProductListFragment : Fragment() {
     // Jasny, nemame not-null assertion operator, ale zde je to dokonce ukazkove pouziti od googlu vzhledem k DI
     private val binding get() = _binding!!
 
-    private val productAdapter = ProductDataAdapter(::detailClick, ::favClick)
+    private val productAdapter = ProductDataAdapter(::detailClick, ::favClick, ::addItemToBasket)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,5 +83,9 @@ class ProductListFragment : Fragment() {
 
     private fun favClick(product: Product) {
         viewModel.doFavItem(product)
+    }
+
+    private fun addItemToBasket(product: Product) {
+        viewModel.addItemToBasket(product)
     }
 }

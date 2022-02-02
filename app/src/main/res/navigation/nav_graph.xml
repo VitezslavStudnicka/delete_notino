@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/productListFragment"
         android:name="com.vs.notino.main.product.list.ProductListFragment"
-        android:label="fragment_product_list"
-        tools:layout="@layout/fragment_product_list" >
+        android:label="Notino"
+        tools:layout="@layout/fragment_product_list">
         <action
             android:id="@+id/action_productListFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
@@ -17,8 +17,8 @@
     <fragment
         android:id="@+id/productDetailFragment"
         android:name="com.vs.notino.main.product.detail.ProductDetailFragment"
-        android:label="fragment_product_detail"
-        tools:layout="@layout/fragment_product_detail" >
+        android:label="Detail"
+        tools:layout="@layout/fragment_product_detail">
         <argument
             android:name="productId"
             app:argType="long" />

@@ -23,7 +23,7 @@ object AppModule {
     @Provides
     fun providesHttpLoggingInterceptor() = HttpLoggingInterceptor()
         .apply {
-            level = HttpLoggingInterceptor.Level.BODY
+            level = HttpLoggingInterceptor.Level.NONE
         }
 
     @Singleton

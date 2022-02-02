@@ -7,6 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="notino_pink">#B254D5</color>
+    <color name="notino_pink">#de1c5e</color>
     <color name="notino_gray_d1">#ACA6AE</color>
+    <color name="notino_gray_d2">#7a7a7a</color>
 </resources>

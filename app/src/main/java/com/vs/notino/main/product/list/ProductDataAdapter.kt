@@ -14,11 +14,12 @@ import com.vs.notino.networking.RestRepository
 class ProductDataAdapter(
     private val onDetailClick: ((Product) -> Unit)?,
     private val onFavClick: ((Product) -> Unit)?,
+    private val onAddItemToBasketClick: ((Product) -> Unit)?
 ) : PagingDataAdapter<Product, ProductItemViewHolder>(DataDifferentiator) {
 
     override fun onBindViewHolder(holder: ProductItemViewHolder, position: Int) {
         getItem(position)?.let {
-            holder.bind(it, onFavClick, onDetailClick)
+            holder.bind(it, onFavClick, onDetailClick, onAddItemToBasketClick)
         }
     }
 
@@ -46,9 +47,11 @@ class ProductDataAdapter(
             product: Product,
             favClick: ((Product) -> Unit)?,
             detailClick: ((Product) -> Unit)?,
+            addToBasketClick: ((Product) -> Unit)?,
         ) {
             binding.product = product
             binding.detailClick = detailClick
+            binding.addToBasketClick = addToBasketClick
             binding.favClick = {
                 favClick?.invoke(it)
                 // KekW, tento megahack prosim nepraktikovat. Je to spatne reseni na spatna data,

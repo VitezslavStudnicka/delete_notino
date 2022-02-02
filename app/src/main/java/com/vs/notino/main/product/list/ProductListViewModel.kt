@@ -40,6 +40,18 @@ class ProductListViewModel @Inject constructor(
         }
     }
 
+    fun addItemToBasket(product: Product) {
+        Log.d(TAG, "OmegaLul")
+        viewModelScope.launch {
+            val response = repository.addItemToBasket(product.productId, 1)
+            if (response.isSuccessful) {
+                Log.d(TAG, "OmegaLul")
+            } else {
+                Log.d(TAG, "NotLikeThis")
+            }
+        }
+    }
+
     companion object {
         val TAG = ProductListViewModel::class.java.enclosingClass?.simpleName
         const val PAGE_SIZE = 10
