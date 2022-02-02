@@ -1,10 +1,13 @@
 package com.vs.notino
 
+import android.content.Context
 import com.vs.notino.networking.ApiService
 import com.vs.notino.networking.RestRepository
+import com.vs.notino.utils.DataStoreManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -41,9 +44,17 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
+    fun provideApiService(
+        retrofit: Retrofit
+    ): ApiService = retrofit.create(ApiService::class.java)
 
     @Singleton
     @Provides
     fun providesRestRepository(apiService: ApiService) = RestRepository(apiService)
+
+    @Singleton
+    @Provides
+    fun providesDataStoreManager(
+        @ApplicationContext app: Context
+    ): DataStoreManager = DataStoreManager(app)
 }
