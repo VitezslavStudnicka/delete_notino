@@ -1,6 +1,7 @@
 package com.vs.notino.main.product.list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -81,6 +82,6 @@ class ProductListFragment : Fragment() {
     }
 
     private fun favClick(product: Product) {
-        viewModel::doFavItem
+        viewModel.doFavItem(product)
     }
 }

@@ -2,10 +2,7 @@ package com.vs.notino.networking
 
 import com.vs.notino.networking.reponses.RespProducts
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ApiService {
     @GET("db")
@@ -16,7 +13,13 @@ interface ApiService {
 
     @POST("db/{id}/fav") // example na Endpoint, ktery by favorizoval product
     suspend fun postFavProduct(
-        @Path("id") id: Int
-    ): Response<Nothing>
+        @Path("id") id: Int,
+        @Query("favored") favored: Boolean
+    ): Response<Void>
 
+    @PUT("basket") // example na Endpoint, ktery by pridaval do kosiku
+    suspend fun putProduct(
+        @Query("id") id: Int,
+        @Query("count") count: Int
+    ): Response<Void>
 }

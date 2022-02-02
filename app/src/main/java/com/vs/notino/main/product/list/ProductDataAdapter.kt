@@ -49,7 +49,14 @@ class ProductDataAdapter(
         ) {
             binding.product = product
             binding.detailClick = detailClick
-            binding.favClick = favClick
+            binding.favClick = {
+                favClick?.invoke(it)
+                // KekW, tento megahack prosim nepraktikovat. Je to spatne reseni na spatna data,
+                // mela by chodit v responsu a tim padem byt i jedinym zdrojem pravdy a ne se udrzovat v pameti.
+                // jiste by sel pouzit i two way databinding
+                binding.product = it
+                binding.executePendingBindings()
+            }
             binding.ivImage.load(RestRepository.BASE_IMAGE_URL.plus(product.imageUrl)) {
                 build()
             }

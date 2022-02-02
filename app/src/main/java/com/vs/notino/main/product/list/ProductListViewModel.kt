@@ -27,8 +27,11 @@ class ProductListViewModel @Inject constructor(
         }.liveData.cachedIn(viewModelScope)
 
     fun doFavItem(product: Product) {
+        val current = product.favored // with val preventing against fast repeated async calls to call with wrong parameter
+        product.favored = !current
+        Log.d(TAG, "Success id=${product.productId} newFavoredState=${product.favored}")
         viewModelScope.launch {
-            val response = repository.postFavProduct(product.productId)
+            val response = repository.postFavProduct(product.productId, !current)
             if (response.isSuccessful) {
                 Log.d(TAG, "Success")
             } else {

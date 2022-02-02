@@ -14,7 +14,9 @@ data class Product(
     val reviewSummary: ReviewSummary?,
     val stockAvailability: StockAvailability?,
     val url: String?
-)
+) {
+    var favored: Boolean = false
+}
 
 
 
