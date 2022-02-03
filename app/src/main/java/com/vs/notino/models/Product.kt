@@ -1,7 +1,11 @@
 package com.vs.notino.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class Product(
-    val productId: Int,
+    @PrimaryKey val productId: Int,
     val annotation: String?,
     val attributes: Attributes?,
     val brand: Brand?,

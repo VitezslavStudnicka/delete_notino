@@ -60,6 +60,11 @@ dependencies {
     implementation "io.coil-kt:coil:2.0.0-alpha07"
     implementation "androidx.datastore:datastore-preferences:1.0.0"
     implementation 'androidx.datastore:datastore-core:1.0.0'
+    implementation "androidx.room:room-paging:$roomVersion"
+    implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    implementation 'com.google.code.gson:gson:2.8.9'
 
     kapt "com.google.dagger:hilt-compiler:2.38.1"
 

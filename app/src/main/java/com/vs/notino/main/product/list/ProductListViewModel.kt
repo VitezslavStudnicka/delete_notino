@@ -1,6 +1,7 @@
 package com.vs.notino.main.product.list
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -9,13 +10,17 @@ import androidx.paging.cachedIn
 import androidx.paging.liveData
 import com.vs.notino.models.Product
 import com.vs.notino.networking.RestRepository
+import com.vs.notino.roomdb.DBRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class ProductListViewModel @Inject constructor(
-    private val repository: RestRepository
+    private val repository: RestRepository,
+    private val dbRepository: DBRepository
 ) : ViewModel() {
 
     val productList =
@@ -23,8 +28,10 @@ class ProductListViewModel @Inject constructor(
             pageSize = PAGE_SIZE,
             prefetchDistance = ADAPTER_PREFETCH_SIZE)
         ) {
-            ProductDataSource(repository)
+            ProductDataSource(repository, dbRepository)
         }.liveData.cachedIn(viewModelScope)
+
+    val message: MutableLiveData<String> = MutableLiveData()
 
     fun doFavItem(product: Product) {
         val current = product.favored // with val preventing against fast repeated async calls to call with wrong parameter
@@ -32,10 +39,14 @@ class ProductListViewModel @Inject constructor(
         Log.d(TAG, "Success id=${product.productId} newFavoredState=${product.favored}")
         viewModelScope.launch {
             val response = repository.postFavProduct(product.productId, !current)
-            if (response.isSuccessful) {
-                Log.d(TAG, "Success")
-            } else {
-                Log.d(TAG, "NotLikeThis")
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    Log.d(TAG, "Success")
+                    message.postValue("Success")
+                } else {
+                    Log.d(TAG, "NotLikeThis")
+                    message.postValue("Oh no, could not favorite")
+                }
             }
         }
     }
@@ -44,10 +55,14 @@ class ProductListViewModel @Inject constructor(
         Log.d(TAG, "OmegaLul")
         viewModelScope.launch {
             val response = repository.addItemToBasket(product.productId, 1)
-            if (response.isSuccessful) {
-                Log.d(TAG, "OmegaLul")
-            } else {
-                Log.d(TAG, "NotLikeThis")
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    Log.d(TAG, "OmegaLul")
+                    message.postValue("OmegaLul - Success")
+                } else {
+                    Log.d(TAG, "NotLikeThis")
+                    message.postValue("Failed KekW")
+                }
             }
         }
     }

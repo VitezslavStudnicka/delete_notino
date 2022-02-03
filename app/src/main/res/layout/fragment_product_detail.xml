@@ -14,6 +14,12 @@
         android:layout_height="match_parent"
         android:backgroundTint="@android:color/darker_gray">
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@{vm.product.toString()}" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
